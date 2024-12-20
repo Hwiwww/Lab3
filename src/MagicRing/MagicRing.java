@@ -1,6 +1,7 @@
 package MagicRing;
 
 
+import Human.Human;
 import Human.Molodec;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Random;
 import Enum.Job;
 
 public class MagicRing implements Magic {
-    private String color;
+    private final String color;
     private int usages;
 
 
@@ -24,14 +25,14 @@ public class MagicRing implements Magic {
         }
         Random random = new Random();
         ArrayList<Molodec> molodecs = new ArrayList<Molodec>();
-        molodecs.add(new Molodec(66, "vasya", Job.MECHANIC, 26));
+        molodecs.add(new Molodec(66, "Вася", Job.MECHANIC, 26));
         int chance = random.nextInt(1, 101);
         if (chance <= 40) {
-            molodecs.add(new Molodec(55, "serega", Job.LAYER, 26));
-            molodecs.add(new Molodec(44, "ivan", Job.GLASSMAKER, 26));
+            molodecs.add(new Molodec(55, "Серега", Job.LAYER, 30));
+            molodecs.add(new Molodec(44, "Иван", Job.GLASSMAKER, 40));
         }
         else if (chance <= 60) {
-            molodecs.add(new Molodec(44, "ivan", Job.GLASSMAKER, 26));
+            molodecs.add(new Molodec(44, "Иван", Job.GLASSMAKER, 40));
         }
         System.out.println("Кольцо вызвало Молодцов и исчезло.");
         usages += 1;
@@ -53,9 +54,11 @@ public class MagicRing implements Magic {
         if (obj == this) {
             return true;
         }
-        MagicRing ring = (MagicRing) obj;
-        return usages == ring.usages
-                && (color == ring.color);
+        if (!(obj instanceof MagicRing magicRing)) {
+            return false;
+        }
+        return usages == magicRing.usages
+                && (color.equals(magicRing.color));
     }
 
 }

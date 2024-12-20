@@ -1,16 +1,29 @@
 package Human;
 
+import Bridge.Bridge;
 import Enum.Job;
 
 public abstract class Human {
-    private int age;
-    private String name;
-    private Job job;
+    private final int age;
+    private final String name;
+    private final Job job;
 
     public Human(int age, String name, Job job) {
         this.age = age;
         this.name = name;
         this.job = job;
+        setName(name);
+        setAge(age);
+    }
+    public void setName(String name) throws ZeroException{
+        if (name == null || name.trim().isEmpty()){
+            throw new ZeroException( "Имя не может быть пустым");
+        }
+    }
+    public void setAge(int name) throws ZeroException{
+        if (age < 0){
+            throw new ZeroException(" Возраст не может быть отрицательным");
+        }
     }
 
     public int getAge() {
@@ -42,8 +55,10 @@ public abstract class Human {
         if (obj == this) {
             return true;
         }
-        Human person = (Human) obj;
-        return age == person.getAge()
-                && (name != null && name.equals(getName())) && (job == person.getJob());
+        if (!(obj instanceof Human  human)) {
+            return false;
+        }
+        return age == human.getAge()
+                && (name != null && name.equals(getName())) && (job == human.getJob());
     }
 }

@@ -4,8 +4,8 @@ import Bridge.Bridge;
 import Human.Human;
 
 public class Car {
-    private int speed;
-    private boolean automotive;
+    private final int speed;
+    private final boolean automotive;
 
     public Car(int speed, boolean automotive) {
         this.speed = speed;
@@ -21,10 +21,9 @@ public class Car {
     }
 
     public void travelOverBridge(Bridge bridge) throws BridgeDoesntExist {
-        if(bridge.isBuilt){
-            System.out.println( "Машина проехала по мосту" );
-        }
-        else{
+        if (bridge.isBuilt) {
+            System.out.println("Машина проехала по мосту.");
+        } else {
             throw new BridgeDoesntExist();
         }
 
@@ -45,8 +44,10 @@ public class Car {
         if (obj == this) {
             return true;
         }
-        Car representative = (Car) obj;
-        return speed == representative.getSpeed() && automotive == representative.isAutomotive();
+        if (!(obj instanceof Car car)){
+            return false;
+        }
+        return speed == car.getSpeed() && automotive == car.isAutomotive();
     }
 
 }

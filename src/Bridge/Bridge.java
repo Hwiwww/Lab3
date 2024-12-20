@@ -1,17 +1,25 @@
 package Bridge;
 
 import Enum.Material;
-import Human.Human;
+import Human.ZeroException;
+
 
 public class Bridge {
-    private Material material;
-    public int length;
+    private final Material material;
+    private final int length;
     public boolean isBuilt;
 
     public Bridge(int length, Material material) {
         this.length = length;
         this.material = material;
         isBuilt = false;
+        setLength(length);
+
+    }
+    public void setLength(int length) throws ZeroException{
+        if (length < 0){
+            throw new ZeroException("Длина не может быть отрицательной.");
+        }
     }
 
     public int getLength() {
@@ -22,13 +30,8 @@ public class Bridge {
         return this.material;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
     public static int calcLength(int riversWidth, int ravinesWidth) {
-        int length = ravinesWidth+riversWidth+10;
-        return length;
+        return ravinesWidth + riversWidth + 10;
     }
 
     @Override
@@ -46,8 +49,11 @@ public class Bridge {
         if (obj == this) {
             return true;
         }
-        Bridge bridge = (Bridge) obj;
+        if (!(obj instanceof Bridge bridge)) {
+            return false;
+        }
         return length == bridge.getLength()
-                &&  (material == bridge.getMaterial());
+                && (material == bridge.getMaterial());
     }
+
 }

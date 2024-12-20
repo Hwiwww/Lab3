@@ -29,7 +29,7 @@ public class Main {
             molodecs.get(i).work();
             sumPerformance += molodecs.get(i).getPerformance();
         }
-        double time = bridge.length / sumPerformance;
+        double time = bridge.getLength() / sumPerformance;
         DayTime dayTime;
         if (time <= 6) {
             dayTime = DayTime.NIGHT;

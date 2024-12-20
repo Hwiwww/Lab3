@@ -20,8 +20,7 @@ public class Semyon extends Human {
 
     public void work() {
         switch (getJob()) {
-            case UNEMPLOYED:
-                break;
+            case UNEMPLOYED -> System.out.println("Семён наблюдает за работой молодцев." );
         }
     }
 
